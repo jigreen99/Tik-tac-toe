@@ -1,0 +1,96 @@
+tic tac toe
+
+import random
+
+class TicTacToe:
+    def __init__(self):
+        """Initialize the game board and set starting player"""
+        self.board = [' ' for _ in range(9)]  # 3x3 board represented as a list
+        self.current_player = random.choice(['X', 'O'])  # Randomly choose who goes first
+    
+    def print_board(self):
+        """Display the current game board"""
+        print("\n")
+        for row in [self.board[i*3:(i+1)*3] for i in range(3)]:
+            print('| ' + ' | '.join(row) + ' |')
+        print("\n")
+    
+    def available_moves(self):
+        """Return list of available moves (indices of empty spaces)"""
+        return [i for i, spot in enumerate(self.board) if spot == ' ']
+    
+    def make_move(self, position):
+        """Make a move on the board if it's valid"""
+        if position in self.available_moves():
+            self.board[position] = self.current_player
+            return True
+        return False
+    
+    def switch_player(self):
+        """Switch the current player"""
+        self.current_player = 'O' if self.current_player == 'X' else 'X'
+    
+    def check_winner(self):
+        """Check if there's a winner or if the game is a tie"""
+        # Check rows
+        for row in [self.board[i*3:(i+1)*3] for i in range(3)]:
+            if all(spot == row[0] != ' ' for spot in row):
+                return row[0]
+        
+        # Check columns
+        for col in range(3):
+            if all(self.board[col+i*3] == self.board[col] != ' ' for i in range(3)):
+                return self.board[col]
+        
+        # Check diagonals
+        if self.board[0] == self.board[4] == self.board[8] != ' ':
+            return self.board[0]
+        if self.board[2] == self.board[4] == self.board[6] != ' ':
+            return self.board[2]
+        
+        # Check for tie
+        if ' ' not in self.board:
+            return 'Tie'
+        
+        return None
+    
+    def play(self):
+        """Main game loop"""
+        print("Welcome to Tic-Tac-Toe!")
+        print("Positions are numbered 0-8, left to right, top to bottom:")
+        print("0 | 1 | 2")
+        print("3 | 4 | 5")
+        print("6 | 7 | 8")
+        
+        while True:
+            self.print_board()
+            print(f"Player {self.current_player}'s turn")
+            
+            # Get valid move from player
+            while True:
+                try:
+                    move = int(input(f"Enter your move (0-8): "))
+                    if 0 <= move <= 8 and self.make_move(move):
+                        break
+                    else:
+                        print("Invalid move. Try again.")
+                except ValueError:
+                    print("Please enter a number between 0-8.")
+            
+            # Check for winner
+            winner = self.check_winner()
+            if winner:
+                self.print_board()
+                if winner == 'Tie':
+                    print("It's a tie!")
+                else:
+                    print(f"Player {winner} wins!")
+                break
+            
+            # Switch players
+            self.switch_player()
+
+# Start the game
+if __name__ == "__main__":
+    game = TicTacToe()
+    game.play()
