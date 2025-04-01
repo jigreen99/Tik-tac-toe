@@ -7,6 +7,8 @@
 # Group 5
 
 
+# Coding Help https://realpython.com/tic-tac-toe-python/ helped syntax for the code to run properly. coding is not the same n-or coppied !!
+
 
 
 tic tac toe
