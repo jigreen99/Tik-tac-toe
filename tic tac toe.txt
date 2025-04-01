@@ -1,3 +1,14 @@
+# Class: CSE 1321L
+# Section: w01
+# Term: Spring 
+# Instructor: Jeevan Sai Pothuri
+# Name: Jeremy Green
+# Tik Tac Toe Coding Game 
+# Group 5
+
+
+
+
 tic tac toe
 
 import random
